@@ -18,6 +18,7 @@ AMyActor_Test::AMyActor_Test()
 	tmpSpComp->InitSphereRadius(45.f);
 	tmpSpComp->SetCollisionProfileName(TEXT("Pawn"));
 
+	//添加静态网格体资源
 	UStaticMeshComponent* tmpSpMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mystatic"));
 	tmpSpMesh->SetupAttachment(RootComponent);
 
