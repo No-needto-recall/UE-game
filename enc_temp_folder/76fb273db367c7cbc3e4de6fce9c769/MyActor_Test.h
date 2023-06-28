@@ -33,10 +33,6 @@ public:
 	
 	UPROPERTY(VisibleInstanceOnly, Category = "ActorProperty")
 	FVector v2;
-
-	//UPROPERTY(EditReadOnly, Category = "ActorProperty")
-	//FVector v2;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
