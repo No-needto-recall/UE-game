@@ -99,7 +99,7 @@ void AMyPawn_test::left_and_right(float AxisVal) {
 void AMyPawn_test::turn(float AxisVal) {
 
 	if (movement && movement->UpdatedComponent == RootComponent) {
-		// 创建一个Yaw旋转量
+		// 创建一个Yaw旋转量
 		FRotator DeltaRotation(0, AxisVal, 0);
 		// 将鼠标移动值用作PlayerController的Yaw输入
 		auto contrl = UGameplayStatics::GetPlayerController(this, 0);
@@ -117,5 +117,6 @@ void AMyPawn_test::fire() {
 	if (FireEffect) {
 		FVector Location = GetActorLocation(); // 将特效放在Pawn的位置
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), FireEffect, Location);
+		GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,TEXT("开火"));
 	}
 }
