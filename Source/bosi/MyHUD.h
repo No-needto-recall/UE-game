@@ -13,5 +13,8 @@ UCLASS()
 class BOSI_API AMyHUD : public AHUD
 {
 	GENERATED_BODY()
+public:
+	//重写beginPlay
+	virtual void BeginPlay()override;
 	
 };
