@@ -18,8 +18,10 @@ public:
 	virtual void BeginPlay()override;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "HUD CPP")
-	FString _myTestString = "hello world";
+	FString MyTestString = "hello world";
 
-	UPROPERTY(EditAnywhere,Category = "UserWidgetFromCpp")
-	UClass* _myClass1;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "UserWidgetFromCpp")
+	TSubclassOf<class UMyUserWidget> MyClass1;
+	//UClass* MyClass1;
+
 };
