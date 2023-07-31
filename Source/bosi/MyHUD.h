@@ -16,5 +16,10 @@ class BOSI_API AMyHUD : public AHUD
 public:
 	//重写beginPlay
 	virtual void BeginPlay()override;
-	
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "HUD CPP")
+	FString _myTestString = "hello world";
+
+	UPROPERTY(EditAnywhere,Category = "UserWidgetFromCpp")
+	UClass* _myClass1;
 };

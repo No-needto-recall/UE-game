@@ -13,5 +13,15 @@ UCLASS()
 class BOSI_API UMyUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+public:
+	virtual bool Initialize()override;
+
+	virtual void NativeConstruct()override;
+
+public:
+	UPROPERTY(Meta = (BindWidget))
+	class UButton* button1;
+
+	UPROPERTY(Meta = (BindWidget))
+	class UTextBlock* TextBlock1;
 };
