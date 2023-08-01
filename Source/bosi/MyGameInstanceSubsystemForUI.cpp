@@ -40,7 +40,30 @@ void UMyGameInstanceSubsystemForUI::HideWidgetWithType(TSubclassOf<UMyUserWidget
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("尝试隐藏widget为不在Map中"),);
+		UE_LOG(LogTemp, Warning, TEXT("尝试隐藏widget为不在Map中"));
+	}
+}
+
+bool UMyGameInstanceSubsystemForUI::SwitchWidgetShowOrHideWithType(TSubclassOf<UMyUserWidget> Type)
+{
+	auto Widget = GetUIWidgetWithType(Type);
+	if (Widget)
+	{
+		if (Widget->Attribute.IsShowing)
+		{
+			HideWidget(Widget);
+		}
+		else
+		{
+			AddWidgetToView(Widget);
+		}
+		return Widget->Attribute.IsShowing;
+	}
+	else
+	{
+		ShowWidgetWithType(Type);
+		UE_LOG(LogTemp, Warning, TEXT("SwitchWidget widget=nullptr"));
+		return true;
 	}
 }
 
@@ -58,7 +81,7 @@ void UMyGameInstanceSubsystemForUI::AddWidgetToView(UMyUserWidget* Widget)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("尝试添加到视口的widget为nullptr"),);
+		UE_LOG(LogTemp, Warning, TEXT("尝试添加到视口的widget为nullptr"));
 	}
 }
 
@@ -71,7 +94,7 @@ UMyUserWidget* UMyGameInstanceSubsystemForUI::GetUIWidgetWithType(TSubclassOf<UM
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("尝试获取的widget为不在Map中"),);
+		UE_LOG(LogTemp, Warning, TEXT("尝试获取的widget为不在Map中"));
 		return nullptr;
 	}
 }
@@ -94,7 +117,7 @@ void UMyGameInstanceSubsystemForUI::HideWidget(UMyUserWidget* Widget)
 			//如果UI是showing状态，则从父项中移除
 			if (Widget->Attribute.IsShowing)
 			{
-				Widget->RemoveFromRoot();
+				Widget->RemoveFromViewport();
 				Widget->Attribute.IsShowing = false;
 				Widget->OnHide();
 			}
@@ -102,6 +125,6 @@ void UMyGameInstanceSubsystemForUI::HideWidget(UMyUserWidget* Widget)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("尝试隐藏的widget为nullptr"),);
+		UE_LOG(LogTemp, Warning, TEXT("尝试隐藏的widget为nullptr"));
 	}
 }

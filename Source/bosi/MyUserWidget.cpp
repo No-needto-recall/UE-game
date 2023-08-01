@@ -31,9 +31,6 @@ void UMyUserWidget::NativeConstruct()
 void UMyUserWidget::Onshow()
 {
 	SynchronizationUI();
-	FString tmp = this->GetName() + "OnShow";
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red,
-	                                 tmp);
 }
 
 void UMyUserWidget::OnHide()
@@ -50,18 +47,27 @@ void UMyUserWidget::SynchronizationUI()
 	for (auto& UI : AssociationUI)
 	{
 		auto RealUI = UIManager->GetUIWidgetWithType(UI);
-		if (!(RealUI->Attribute.IsShowing))
+		if (RealUI)
 		{
-			UIManager->ShowWidgetWithType(UI);
+			if (!(RealUI->Attribute.IsShowing))
+			{
+				UIManager->ShowWidgetWithType(UI);
+			}
+		}else
+		{
+				UIManager->ShowWidgetWithType(UI);
 		}
 	}
 	//互斥的UI
 	for (auto& UI : MutualExclusionUI)
 	{
 		auto RealUI = UIManager->GetUIWidgetWithType(UI);
-		if (RealUI->Attribute.IsShowing)
+		if (RealUI)
 		{
-			UIManager->HideWidgetWithType(UI);
+			if (RealUI->Attribute.IsShowing)
+			{
+				UIManager->HideWidgetWithType(UI);
+			}
 		}
 	}
 }

@@ -62,5 +62,7 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<TSubclassOf<UMyUserWidget>> MutualExclusionUI;
 
+	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UMyGameInstanceSubsystemForUI* UIManager;
 };

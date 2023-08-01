@@ -10,6 +10,8 @@
  * 
  */
 
+//控件基类的前置声明
+class UMyUserWidget;
 
 UCLASS()
 class BOSI_API UMyGameInstanceSubsystemForUI : public UGameInstanceSubsystem
@@ -18,12 +20,16 @@ class BOSI_API UMyGameInstanceSubsystemForUI : public UGameInstanceSubsystem
 
 public:
 	//对外接口
-	UFUNCTION(BlueprintCallable,Category = "UIManagerCPP")
-
+	
 	//根据类引用展示UI
-	void ShowWidgetWithType(TSubclassOf<class UMyUserWidget> Type);
+	UFUNCTION(BlueprintCallable,Category = "UIManagerCPP")
+	void ShowWidgetWithType(TSubclassOf<UMyUserWidget> Type);
 	//根据类引用隐藏UI
-	void HideWidgetWithType(TSubclassOf<class UMyUserWidget> Type);
+	UFUNCTION(BlueprintCallable,Category = "UIManagerCPP")
+	void HideWidgetWithType(TSubclassOf<UMyUserWidget> Type);
+	//根据类引用切换UI状态
+	UFUNCTION(BlueprintCallable,Category = "UIManagerCPP")
+	bool SwitchWidgetShowOrHideWithType(TSubclassOf<UMyUserWidget> Type);
 	//隐藏所有UI
 	void HideAllWidget();
 	//隐藏UI
@@ -32,7 +38,7 @@ public:
 	void AddWidgetToView(UMyUserWidget* Widget);
 
 	//通过类引用获取UI
-	UMyUserWidget* GetUIWidgetWithType(TSubclassOf<class UMyUserWidget> Type);
+	UMyUserWidget* GetUIWidgetWithType(TSubclassOf<UMyUserWidget> Type);
 	
 private:
 	//注意保存是指针
