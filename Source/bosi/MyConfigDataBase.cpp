@@ -3,6 +3,8 @@
 
 #include "MyConfigDataBase.h"
 
+
+
 bool UMyPlayerConfigData::LoadDataWithXml(const FXmlNode* Node)
 {
 	if(!Node)
