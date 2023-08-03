@@ -4,28 +4,36 @@
 #include "MyConfigDataBase.h"
 
 
-
 bool UMyPlayerConfigData::LoadDataWithXml(const FXmlNode* Node)
 {
-	if(!Node)
+	if (!Node)
 	{
 		return false;
 	}
-	for(const FXmlNode* ChildNode:Node->GetChildrenNodes())
+	for (const FXmlNode* ChildNode : Node->GetChildrenNodes())
 	{
 		FString Tag = ChildNode->GetTag();
-
-		if(Tag == TEXT("PlayerData"))
+		if (Tag == TEXT("Player"))
 		{
-			this->Name = ChildNode->GetAttribute(TEXT("name"));
-			this->Id = FCString::Atoi(*ChildNode->GetAttribute(TEXT("id")));
-		}
-		else if(Tag == TEXT("Hp"))
-		{
-			this->Hp = FCString::Atoi(*ChildNode->GetContent());
-		}else if(Tag == TEXT("Mp"))
-		{
-			this->Mp = FCString::Atoi(*ChildNode->GetContent());
+			UPlayerConfigdata* tmp = NewObject<UPlayerConfigdata>();
+			for (const FXmlNode* Cnode : ChildNode->GetChildrenNodes())
+			{
+				Tag = Cnode->GetTag();
+				if (Tag == TEXT("PlayerData"))
+				{
+					tmp->Name = Cnode->GetAttribute(TEXT("name"));
+					tmp->Id = FCString::Atoi(*Cnode->GetAttribute(TEXT("id")));
+				}
+				if (Tag == TEXT("Hp"))
+				{
+					tmp->Hp = FCString::Atoi(*Cnode->GetContent());
+				}
+				if (Tag == TEXT("Mp"))
+				{
+					tmp->Mp = FCString::Atoi(*Cnode->GetContent());
+				}
+			}
+			PlayerConfigDatas.Add(tmp);
 		}
 	}
 	return true;

@@ -2,11 +2,52 @@
 
 
 #include "XMLSubsystem.h"
-#include "XmlFile.h"
 
 UMyPlayerConfigData* UXMLSubsystem::GetPlayerConfigData()
 {
 	return  GetConfigInfo<UMyPlayerConfigData>(FString("PlayerConfig.xml"));
+}
+
+void UXMLSubsystem::TestJsonSave()
+{
+	const FString FilPath = FPaths::ProjectContentDir()/TEXT("Data.json");
+	FString JSONStr;
+
+	TSharedPtr<TJsonWriter<>> JsonWriter = TJsonWriterFactory<>::Create(&JSONStr);
+	JsonWriter->WriteObjectStart();
+	JsonWriter->WriteValue(TEXT("data1"),TEXT("1002"));
+	JsonWriter->WriteValue(TEXT("data2"),TEXT("1004"));
+	JsonWriter->WriteValue(TEXT("data3"),TEXT("1006"));
+	JsonWriter->WriteObjectEnd();
+	//关闭写入流
+	JsonWriter->Close();
+	FFileHelper::SaveStringToFile(JSONStr,*FilPath);
+}
+
+void UXMLSubsystem::TestJsonLoad()
+{
+	const FString FilPath = FPaths::ProjectContentDir()/TEXT("Data.json");
+	// 读取文件内容
+    	FString jsonString;
+    	FFileHelper::LoadFileToString(jsonString, *FilPath);
+    
+    	// 创建一个JSON阅读器
+    	TSharedRef<TJsonReader<>> jsonReader = TJsonReaderFactory<>::Create(jsonString);
+    
+    	// 用于保存反序列化后的JSON对象
+    	TSharedPtr<FJsonObject> jsonObject;
+    
+    	// 反序列化
+    	if (FJsonSerializer::Deserialize(jsonReader, jsonObject) && jsonObject.IsValid())
+    	{
+    		// 获取并打印字段的值
+    		FString data1 = jsonObject->GetStringField(TEXT("data1"));
+    		FString data2 = jsonObject->GetStringField(TEXT("data2"));
+    		FString data3 = jsonObject->GetStringField(TEXT("data3"));
+    
+    		UE_LOG(LogTemp, Warning, TEXT("json msg:--> Data1: %s, Data2: %s, Data3: %s"), *data1, *data2, *data3);
+    	}
+	
 }
 
 #if 0 

@@ -14,7 +14,7 @@ class BOSI_API UXMLSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
-public:
+protected:
 	//加载指定类型的配置文件
 	template <typename T>
 	T* LoadConfigFile(const FString& ConfigFileName)
@@ -45,6 +45,7 @@ public:
 		return nullptr;
 	}
 
+public:
 	//获取指定类型的配置信息
 	template <typename T>
 	T* GetConfigInfo(const FString& ConfigKey)
@@ -63,11 +64,15 @@ public:
 		}
 	}
 
-
 	//方便蓝图调取
 	UFUNCTION(BlueprintCallable, Category = "XML")
 	UMyPlayerConfigData* GetPlayerConfigData();
 
+	UFUNCTION(BlueprintCallable, Category = "XML")
+	void TestJsonLoad();
+	
+	UFUNCTION(BlueprintCallable, Category = "XML")
+	void TestJsonSave();
 #if 0
 	//测试函数	
 	UFUNCTION(BlueprintCallable, Category = "XML")
