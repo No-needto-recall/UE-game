@@ -31,7 +31,7 @@ public:
 	UPROPERTY(EditInstanceOnly, Category = "ActorProperty")
 	FVector v1;
 	
-	UPROPERTY(VisibleInstanceOnly, Category = "ActorProperty")
+	UPROPERTY(VisibleInstanceOnly,Replicated, Category = "ActorProperty")
 	FVector v2;
 
 	//UPROPERTY(EditReadOnly, Category = "ActorProperty")
@@ -44,5 +44,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

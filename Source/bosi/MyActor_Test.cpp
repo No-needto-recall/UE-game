@@ -4,6 +4,7 @@
 #include "MyActor_Test.h"
 #include "Components/SphereComponent.h"  //组件头文件
 #include "Kismet/GameplayStatics.h" //UE玩家类相关头文件
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AMyActor_Test::AMyActor_Test()
@@ -44,5 +45,11 @@ void AMyActor_Test::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AMyActor_Test::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AMyActor_Test,v2);	
 }
 
